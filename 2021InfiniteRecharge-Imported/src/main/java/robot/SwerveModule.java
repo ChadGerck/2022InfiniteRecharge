@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,19 +18,19 @@ public class SwerveModule{
     private volatile double currentError, lastError, pidOutput;
     private double setpoint, lastAngle;
     private static final double dt = 0.05;  
-    private Potentiometer steeringEncoder;
+    private CANCoder steeringEncoder;
     private Boolean isFlipped; 
-    private CANEncoder m_driveEncoder;
+    private RelativeEncoder m_driveEncoder;
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
      * @param kP            the steering kP gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, Potentiometer steeringEncoder, double kP, double kD, boolean isFlipped){
+    public SwerveModule(int kSteeringID, int kDriveID, CANCoder steeringEncoder, double kP, double kD, boolean isFlipped){
         m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
         mSteering = new CANSparkMax(kSteeringID, MotorType.kBrushless);
-        m_driveEncoder = new CANEncoder(m_motor);
+        m_driveEncoder = m_motor.getEncoder();
         m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
         m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
         lastAngle = 0;
@@ -71,7 +71,7 @@ public class SwerveModule{
     }
     public static double boundHalfDegrees(double angle){while(angle>=180)angle-=360;while(angle<-180)angle+=360; return angle;}
     public double getSteeringEncoder(){
-        double angle=steeringEncoder.get();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
+        double angle=steeringEncoder.getPosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
     }
     public void setBrakeOn(boolean brake){ 
         if(brake){m_motor.setIdleMode(IdleMode.kBrake); }

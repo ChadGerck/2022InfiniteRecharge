@@ -2,7 +2,6 @@ package robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI{
     private static final double DEADZONE_LIMIT = 0.1;

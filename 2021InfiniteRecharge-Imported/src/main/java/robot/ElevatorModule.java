@@ -1,7 +1,7 @@
 package robot;
-
-import com.revrobotics.CANEncoder;
+ 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -12,14 +12,14 @@ public class ElevatorModule {
     private Notifier SteeringPID;
     private double setPoint;
     private double PIDOutput;
-    private CANEncoder m_ElevatorEncoder1, m_ElevatorEncoder2; 
+    private RelativeEncoder m_ElevatorEncoder1, m_ElevatorEncoder2; 
     private boolean on; 
     static final double kP = .0008; 
     public ElevatorModule(int kDriveID1, int kDriveID2) { 
         mLift1 = new CANSparkMax(kDriveID1, MotorType.kBrushless);
         mLift2 = new CANSparkMax(kDriveID2, MotorType.kBrushless);
-        m_ElevatorEncoder1 = new CANEncoder(mLift1);
-        m_ElevatorEncoder2 = new CANEncoder(mLift2);
+        m_ElevatorEncoder1 = mLift1.getEncoder();
+        m_ElevatorEncoder2 = mLift2.getEncoder();
         SteeringPID = new Notifier(() -> {
             PIDOutput = kP * getError();
             PIDOutput = Math.min(1, PIDOutput);

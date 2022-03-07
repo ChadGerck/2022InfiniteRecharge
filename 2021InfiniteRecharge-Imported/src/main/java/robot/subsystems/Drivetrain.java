@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,8 +31,11 @@ public class Drivetrain extends SubsystemBase {
   private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
   private static final Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
 
-  public static Potentiometer abeFL = new AnalogPotentiometer(0, 360, 59), abeFR = new AnalogPotentiometer(1, 360, 279), 
-                              abeBL = new AnalogPotentiometer(2, 360, 402), abeBR = new AnalogPotentiometer(3, 360, -17); 
+  public static CANCoder abeFL = new CANCoder(0), abeFR = new CANCoder(1),
+                         abeBL = new CANCoder(2), abeBR = new CANCoder(3); 
+  
+  //abeFL = new AnalogPotentiometer(0, 360, 59), abeFR = new AnalogPotentiometer(1, 360, 279), 
+  //                            abeBL = new AnalogPotentiometer(2, 360, 402), abeBR = new AnalogPotentiometer(3, 360, -17); 
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
@@ -58,7 +61,6 @@ public class Drivetrain extends SubsystemBase {
     Elevator  = new ElevatorModule(15,16); 
     turning = new TurnModule(); 
     shooter = new ShootModule(); 
-    Extendor = new DoubleSolenoid(6,7);
     ServoMotor = new Servo(0);
     ServoMotor.setAngle(270);
   }
