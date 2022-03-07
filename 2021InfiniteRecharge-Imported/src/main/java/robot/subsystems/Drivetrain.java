@@ -1,8 +1,6 @@
 package robot.subsystems;
 
 //import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -12,20 +10,12 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import robot.ElevatorModule;
 import robot.Robot;
-import robot.ShootModule;
 import robot.SwerveModule;
 import robot.TurnModule;
 
 public class Drivetrain extends SubsystemBase {
-  public TurnModule turning;   
-  public ShootModule shooter; 
+  public TurnModule turning;    
   private static final Translation2d m_frontLeftLocation = new Translation2d(0.381, -0.381);
   private static final Translation2d m_frontRightLocation = new Translation2d(0.381, 0.381);
   private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
@@ -45,24 +35,8 @@ public class Drivetrain extends SubsystemBase {
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
   
-  public static ElevatorModule Elevator;
-  public static VictorSPX IntakeMotor, FunnelMotor, ControlPanelMotor;
-  public static TalonFX ShooterMotor1, ShooterMotor2;
-  public static CANSparkMax BallHandlerMotor;
-  public static DoubleSolenoid Extendor; 
-  public static Servo ServoMotor;
    public Drivetrain(){
-    ShooterMotor1 = new TalonFX(9);
-    ShooterMotor2 = new TalonFX(10);
-    ControlPanelMotor = new VictorSPX(11);
-    IntakeMotor       = new VictorSPX(12);
-    FunnelMotor       = new VictorSPX(13);
-    BallHandlerMotor = new CANSparkMax(14, MotorType.kBrushless);
-    Elevator  = new ElevatorModule(15,16); 
     turning = new TurnModule(); 
-    shooter = new ShootModule(); 
-    ServoMotor = new Servo(0);
-    ServoMotor.setAngle(270);
   }
   public static void setModule(String loc,double degrees,double power){
     switch(loc){case "FL":moduleFL.set(degrees,power);break; case "FR":moduleFR.set(degrees,power);break;
@@ -84,41 +58,11 @@ public class Drivetrain extends SubsystemBase {
     moduleFL.setBrakeOn(brake); moduleFR.setBrakeOn(brake);
     moduleBL.setBrakeOn(brake); moduleBR.setBrakeOn(brake);
   }
-  public static void setIntakeMotors(double intakepower, DoubleSolenoid.Value value){
-      IntakeMotor.set(ControlMode.PercentOutput, intakepower);
-      Extendor.set(value);
-  }
-  public static void setPiston(DoubleSolenoid.Value value){Extendor.set(value);}
-  public static void setIntakeSpeed(double intakepower){IntakeMotor.set(ControlMode.PercentOutput, intakepower);}
-  public static void setFunnelSpeed(double funnelPower){FunnelMotor.set(ControlMode.PercentOutput, -funnelPower);}
-  public static void setBallSpeed(double ballPower){BallHandlerMotor.set(-ballPower);}
-  public static void BallTransition(double funnel_handlepower){
-    FunnelMotor.set(ControlMode.PercentOutput, funnel_handlepower);
-    BallHandlerMotor.set(funnel_handlepower);
-  }
-  public static void TopSpin(double shooterpower){ShooterMotor2.set(ControlMode.PercentOutput, shooterpower); }
-  public static void BotSpin(double shooterpower){ShooterMotor1.set(ControlMode.PercentOutput, -shooterpower);}
-  public static void Shoot(double shooterpower){TopSpin(-shooterpower); BotSpin(-shooterpower);}
-  public static void ControlPanel(double power){ ControlPanelMotor.set(ControlMode.PercentOutput, power); }
-  public static void setRawElevator(double speed){ Elevator.setRawElev(speed); }
-  public static void setElevatorPosition(double position){ Elevator.setPosition(position); }
-	public static void ElevOn(boolean On) { Elevator.setOn(On); }
-  public static void ResetElevator() { Elevator.ElevatorReset(); }
-  public static void ServoMotor(double degrees){ServoMotor.setAngle(degrees);}
-
-  public static double BotVelocity(){return ShooterMotor1.getSelectedSensorVelocity(); }
-  public static double TopVelocity(){return ShooterMotor2.getSelectedSensorVelocity(); }
-  
-
-
 	// public double getLiftVelocity() { return Elevator.getLiftVelocity(); }
 	// public double getLiftPosition() { return Elevator.getLiftPosition(); }
   public void updateDashboard(){ 
     SmartDashboard.putNumber("ODOX", ODOX()); 
     SmartDashboard.putNumber("ODOY", ODOY());
-    SmartDashboard.putNumber("FalconTopVelocity: ", ShooterMotor2.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("FalconBotVelocity: ", ShooterMotor1.getSelectedSensorVelocity());
-
   }
   public static void updateOdometry() {
     m_odometry.update(

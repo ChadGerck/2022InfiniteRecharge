@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.SwerveMath;
-import robot.subsystems.Drivetrain;
 import static robot.Robot.oi;
 
 // import org.usfirst.frc.team7327.robot.ElevatorPositions;
@@ -27,11 +26,6 @@ public class Drive extends CommandBase {
 
   public void execute() {
 
-    if(oi.LeftBumperDown(2)){ Drivetrain.setRawElevator(0.75); }
-    else if(oi.RightBumperDown(2)){ Drivetrain.setRawElevator(-0.75);}
-    else{Drivetrain.setRawElevator(0);}
-
-    if(oi.BackButton(1)){Robot.MoveTo(0, 0, 0);}
     if(oi.RSClickDown(1)){evadeMode=true;} else{evadeMode=false;}
 
     if(oi.LSClickDown(1)){speedThrottle = 1;}
@@ -67,29 +61,6 @@ public class Drive extends CommandBase {
     SmartDashboard.putNumber ("Angle", Robot.NavAngle());
     
     //PLAYER TWO CONTROLS
-    SmartDashboard.putNumber("ServoDegrees", Drivetrain.ServoMotor.getAngle());
-//test2
-    if(oi.BackButton(2)){Drivetrain.ServoMotor.setAngle(102);}
-    //Drivetrain.Shoot(oi.LeftY(2));
-    if(oi.XButtonDown(2)){Robot.swerve.shooter.setVelocity(17400);} //5400
-    //else if(oi.BButtonDown(2)){Drivetrain.TopSpin(-.15); Drivetrain.BotSpin(-.15);}
-    //if(oi.XButtonDown(2)){Drivetrain.Shoot(.315);}
-    //else{Drivetrain.Shoot(0); }
-    else{Robot.swerve.shooter.setVelocity(0);}
-    SmartDashboard.putNumber("VelocityShoot", Drivetrain.ShooterMotor1.getSelectedSensorVelocity()); 
-    SmartDashboard.putNumber("Throttle", k);
-
-    if(oi.DpadDown(2)){Drivetrain.setFunnelSpeed(1);}
-    else if(oi.DpadUp(2)){Drivetrain.setFunnelSpeed(-1);}
-    else{Drivetrain.setFunnelSpeed(0);}
-
-    if(oi.YButton(2)){Piston = Value.kForward;}
-    else if(oi.AButton(2)){Piston = Value.kReverse;}
-    Drivetrain.setPiston(Piston);
-    Drivetrain.setIntakeSpeed(0.5*oi.RightY(2));
-    Drivetrain.setBallSpeed(0.25*(oi.LeftTrigger(2)-oi.RightTrigger(2)));
-    if(oi.StartButton(2)){Drivetrain.ResetElevator();}
-
     
     if(oi.StartButton(1)) { Robot.nav.reset(); } //if(oi.StartButton(2)) { Robot.swerve.ResetElevator(); }
     // ElevatorPositions.MoveElevators();

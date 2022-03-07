@@ -77,18 +77,6 @@ public class Robot extends TimedRobot {
         case "P3": Autonomous.Auto3(); break; case "HailMary": Autonomous.Auto4(); break;   
         case "Defense": Autonomous.Auto21(); break;   
       } break; 
-      case "Left": 
-      switch(m_chosen.getSelected()){
-        case "Default": Autonomous.LeftRealign(); break; case "PlayerStation": Autonomous.Auto6(); break; 
-        case "P3": Autonomous.Auto7(); break; case "HailMary": Autonomous.Auto8(); break; 
-        case "Defense": Autonomous.Auto22(); break;   
-      } break; 
-      case "Mid":
-      switch(m_chosen.getSelected()){
-        case "Default": Autonomous.MidDefault(); break; case "PlayerStation": Autonomous.MidPlayerStation(); break; 
-        case "P3": Autonomous.MidRight2Balls(); break; case "HailMary": Autonomous.MidRight3Balls(); break;  
-        case "Defense": Autonomous.Auto23(); break;  
-      } break; 
       case "Front":
       switch(m_chosen.getSelected()){
         case "Default": Autonomous.Auto13(); break; case "PlayerStation": Autonomous.Auto14(); break; 

@@ -1,9 +1,5 @@
 package robot;
-import robot.subsystems.Drivetrain;
-
 // import org.usfirst.frc.team7327.robot.subsystems.Drivetrain;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 public class Autonomous {    
@@ -45,60 +41,6 @@ public class Autonomous {
         Robot.MoveTo(0,0,0); 
         Robot.LimeAlign();
     }
-    public static void LeftRealign(){
-        Drivetrain.TopSpin(.5);
-        Drivetrain.BotSpin(.5);
-        Robot.SleepFor(5);
-        Drivetrain.setBallSpeed(-.25);
-        Robot.SleepFor(4); 
-        Robot.MoveTo(0, 1, -20);
-    }
-    public static void Auto6(){}
-    public static void Auto7(){}
-    public static void Auto8(){}
-    public static void MidDefault(){
-        Drivetrain.TopSpin(.315);
-        Drivetrain.BotSpin(.315);
-        Robot.SleepFor(5);
-        Drivetrain.setBallSpeed(-.25);
-        Robot.SleepFor(4); 
-        Robot.MoveTo(0, 1, 180);
-    }
-    public static void MidPlayerStation(){
-        Drivetrain.TopSpin(.315);
-        Drivetrain.BotSpin(.315);
-        Robot.SleepFor(5);
-        Drivetrain.setBallSpeed(-.25);
-        Robot.SleepFor(4); 
-        Robot.MoveTo(0, 6.5, 180);
-    }
-    public static void MidRight2Balls(){
-        Drivetrain.TopSpin(.315);
-        Drivetrain.BotSpin(.315);
-        Robot.SleepFor(5);
-        Drivetrain.setBallSpeed(-.25);
-        Robot.SleepFor(4); 
-        Robot.MoveTo(0,-2.6,119.3);
-        Drivetrain.setIntakeMotors(0.5, DoubleSolenoid.Value.kForward);
-        Robot.MoveTo(-.66,-2.87,119.3);
-        Robot.MoveTo(-.5,-3.26,119.3); 
-        Drivetrain.setIntakeMotors(0,DoubleSolenoid.Value.kReverse);
-    }
-    public static void MidRight3Balls(){
-        Drivetrain.TopSpin(.315);
-        Drivetrain.BotSpin(.315);
-        Robot.SleepFor(5);
-        Drivetrain.setBallSpeed(-.25);
-        Robot.SleepFor(4); 
-        Robot.MoveTo(0,1,180);
-        Robot.MoveTo(1.7, 1, 180);
-        Drivetrain.setIntakeMotors(0.5, DoubleSolenoid.Value.kForward);
-        Robot.SleepFor(1);
-        Robot.MoveTo(1.7,3.5,180);
-        Robot.MoveTo(0,0,0);
-        Drivetrain.setFunnelSpeed(1);
-
-    }
     public static void Auto12(){}
     public static void Auto13(){}
     public static void Auto14(){}
@@ -119,17 +61,6 @@ public class Autonomous {
         Robot.MoveTo(1,1,0);
     }
 
-    
-    public static void noname(){
-        Drivetrain.setIntakeMotors(0.75, DoubleSolenoid.Value.kForward);
-        Robot.MoveTo(0,2.7,0);
-        Robot.MoveTo(.4,2.7,-90);
-        Drivetrain.setIntakeMotors(0,DoubleSolenoid.Value.kReverse);
-        Drivetrain.setBallSpeed(-.25);
-        Drivetrain.Shoot(0.5);
-        Robot.MoveTo(4.87,.426,180);
-        Drivetrain.setFunnelSpeed(1);
-    }
 
 
     // public static void BlueTrench5(){
