@@ -9,6 +9,8 @@ import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.sensors.CANCoderConfiguration;
+
 
 import robot.Robot;
 import robot.SwerveModule;
@@ -31,6 +33,8 @@ public class Drivetrain extends SubsystemBase {
   private static SwerveModule 
   moduleFL = new SwerveModule(5, 6, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(1, 2, abeFR, kSwerveP, kSwerveD, false),
   moduleBL = new SwerveModule(3, 4, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(7, 8, abeBR, kSwerveP, kSwerveD, false);
+
+  
   
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
