@@ -19,7 +19,7 @@ public class SwerveModule{
     private static final double dt = 0.05;  
     private CANCoder steeringEncoder;
     private Boolean isFlipped; 
-    private RelativeEncoder m_driveEncoder;
+    //private RelativeEncoder m_driveEncoder;
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
@@ -30,8 +30,8 @@ public class SwerveModule{
         m_motor = new TalonFX(kDriveID);
         mSteering = new TalonFX(kSteeringID);
         //m_driveEncoder = m_motor.getEncoder();
-        m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
-        m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
+        //m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
+        //m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         
@@ -58,7 +58,7 @@ public class SwerveModule{
     }
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
-    public SwerveModuleState getState() { return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(Math.toRadians(getSteeringEncoder()))); }
+    //public SwerveModuleState getState() { return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(Math.toRadians(getSteeringEncoder()))); }
     public void set(double degrees, double power){
         double supplement = degrees > 0 ? degrees-180 : 180+degrees;
         if(Math.abs(supplement-lastAngle) <= 90){
@@ -70,7 +70,7 @@ public class SwerveModule{
     }
     public static double boundHalfDegrees(double angle){while(angle>=180)angle-=360;while(angle<-180)angle+=360; return angle;}
     public double getSteeringEncoder(){
-        double angle=steeringEncoder.getPosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
+        double angle=steeringEncoder.getAbsolutePosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
     }
     public void setBrakeOn(boolean brake){ 
         if(brake)

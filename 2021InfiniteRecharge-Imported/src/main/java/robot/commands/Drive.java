@@ -34,12 +34,13 @@ public class Drive extends CommandBase {
 
     SmartDashboard.putBoolean("evademode: ", evadeMode); 
     //SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
-    if(evadeMode && oi.RightMag(1)>.3){ rotMag = -0.5*oi.RightX(1); }
+    if( oi.RightMag(1)>.3){ rotMag = -0.5*oi.RightX(1); }
     else if(oi.RightMag(1) > .7 || oi.DpadUp(1) || oi.DpadDown(1) || oi.DpadLeft(1) || oi.DpadRight(1)){
       if(oi.RightMag(1) > .7) { rightArc = -oi.RightArc(1); }
       else if(oi.DpadUp(1)){ rightArc = 0; } else if(oi.DpadRight(1)){ rightArc = 270; }
       else if(oi.DpadDown(1)){ rightArc = 180; } else if(oi.DpadLeft(1)){ rightArc = 90; }
-      try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
+      try { Robot.swerve.turning.setYaw(rightArc );} catch (Exception e) {}
+      // try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.swerve.turning.getPIDOutput();
     } else{ rotMag = 0; }
 

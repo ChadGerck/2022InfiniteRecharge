@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -26,7 +28,9 @@ public class Drivetrain extends SubsystemBase {
   public static CANCoder abeFL = new CANCoder(4), abeFR = new CANCoder(1),
                          abeBL = new CANCoder(3), abeBR = new CANCoder(2); 
 
-  CANCoderConfiguration _canconfig = new CANCoderConfiguration(); 
+ CANCoderConfiguration _canconfig = new CANCoderConfiguration(); 
+
+  //CANCoderConfiguration _canconfig = new CANCoderConfiguration(); 
   
 
 
@@ -35,14 +39,25 @@ public class Drivetrain extends SubsystemBase {
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
-  moduleFL = new SwerveModule(7, 8, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(1, 2, abeFR, kSwerveP, kSwerveD, false),
-  moduleBL = new SwerveModule(5, 6, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(3, 4, abeBR, kSwerveP, kSwerveD, false);
+  moduleFL = new SwerveModule(8, 7, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, kSwerveP, kSwerveD, false),
+  moduleBL = new SwerveModule(6, 5, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, kSwerveP, kSwerveD, false);
   
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
   
   public Drivetrain(){
     turning = new TurnModule(); 
+   //abeFL.absoluteSensorRange([0,360]);
+
+  //  _canconfig.absoluteSensorRange(0,360);
+
+
+    abeFL.configMagnetOffset(-5);
+    abeFR.configMagnetOffset(-5);
+    abeBL.configMagnetOffset(-5);
+    abeBR.configMagnetOffset(-5);
+
+
     abeFL.configAllSettings(_canconfig);
     abeBL.configAllSettings(_canconfig);
     abeFR.configAllSettings(_canconfig);
@@ -76,11 +91,11 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("ODOY", ODOY());
   }
   public static void updateOdometry() {
-    m_odometry.update(
-        getAngle(),
-        moduleFL.getState(), moduleFR.getState(),
-        moduleBL.getState(), moduleBR.getState()
-    );
+    //m_odometry.update(
+        //getAngle(),
+        //moduleFL.getState(), moduleFR.getState(),
+        //moduleBL.getState(), moduleBR.getState()
+    //);
   }
   public double ODOX() { return m_odometry.getPoseMeters().getTranslation().getY(); }
   public double ODOY() { return m_odometry.getPoseMeters().getTranslation().getX(); }
