@@ -17,9 +17,11 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import robot.Robot;
 import robot.SwerveModule;
 import robot.TurnModule;
+import robot.DriveModule;
 
 public class Drivetrain extends SubsystemBase {
-  public TurnModule turning;    
+  public TurnModule turning; 
+  public DriveModule _driveModule;   
   private static final Translation2d m_frontLeftLocation = new Translation2d(0.381, -0.381);
   private static final Translation2d m_frontRightLocation = new Translation2d(0.381, 0.381);
   private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
@@ -47,6 +49,8 @@ public class Drivetrain extends SubsystemBase {
   
   public Drivetrain(){
     turning = new TurnModule(); 
+    _driveModule = new DriveModule();
+
    //abeFL.absoluteSensorRange([0,360]);
 
   //  _canconfig.absoluteSensorRange(0,360);
