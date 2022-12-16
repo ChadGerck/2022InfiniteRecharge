@@ -1,25 +1,25 @@
 package robot;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import com.ctre.phoenix.sensors.CANCoder;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 public class SwerveModule{
-    private CANSparkMax m_motor;
-    private CANSparkMax mSteering;
+    private TalonFX m_motor;
+    private TalonFX mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, lastError, pidOutput;
     private double setpoint, lastAngle;
     private static final double dt = 0.05;  
     private CANCoder steeringEncoder;
     private Boolean isFlipped; 
-    private RelativeEncoder m_driveEncoder;
+    //private RelativeEncoder m_driveEncoder;
     /**
      * @param kSteeringID   the ID of the steering motor
      * @param kDriveID      the ID of the drive motor
@@ -27,11 +27,11 @@ public class SwerveModule{
      * @param kP            the steering kP gain
      */
     public SwerveModule(int kSteeringID, int kDriveID, CANCoder steeringEncoder, double kP, double kD, boolean isFlipped){
-        m_motor = new CANSparkMax(kDriveID, MotorType.kBrushless);
-        mSteering = new CANSparkMax(kSteeringID, MotorType.kBrushless);
-        m_driveEncoder = m_motor.getEncoder();
-        m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
-        m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
+        m_motor = new TalonFX(kDriveID);
+        mSteering = new TalonFX(kSteeringID);
+        //m_driveEncoder = m_motor.getEncoder();
+        //m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
+        //m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
         lastAngle = 0;
         this.steeringEncoder = steeringEncoder;
         
@@ -41,7 +41,7 @@ public class SwerveModule{
             pidOutput = kP * currentError + kD * (lastError - currentError);
             pidOutput = Math.min(pidOutput, .8);
             pidOutput = Math.max(pidOutput, -.8); 
-            mSteering.set(-pidOutput); //Flipped turning value for Spark, if you use +pidOutput it will converge to error = 1 instead of 0
+            mSteering.set(ControlMode.PercentOutput, -pidOutput); //Flipped turning value for Spark, if you use +pidOutput it will converge to error = 1 instead of 0
             SmartDashboard.putNumber("PidOutput: ", pidOutput);
             SmartDashboard.putNumber("CurrentError: ", currentError);
             lastError = currentError;
@@ -53,12 +53,12 @@ public class SwerveModule{
     public double getError(){return setpoint - getSteeringEncoder();}
     public double getModifiedError(){return (boundHalfDegrees(getError()))/180;}
     public void setDrivePower(double power){
-    	if(isFlipped) m_motor.set(-power);
-        else          m_motor.set(power);
+    	if(isFlipped) m_motor.set(ControlMode.PercentOutput, -power);
+        else          m_motor.set(ControlMode.PercentOutput,  power);
     }
     public void setSteeringDegrees(double deg){setpoint = boundHalfDegrees(deg);}
     public double getSetpointDegrees(){return setpoint;}
-    public SwerveModuleState getState() { return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(Math.toRadians(getSteeringEncoder()))); }
+    //public SwerveModuleState getState() { return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(Math.toRadians(getSteeringEncoder()))); }
     public void set(double degrees, double power){
         double supplement = degrees > 0 ? degrees-180 : 180+degrees;
         if(Math.abs(supplement-lastAngle) <= 90){
@@ -70,10 +70,16 @@ public class SwerveModule{
     }
     public static double boundHalfDegrees(double angle){while(angle>=180)angle-=360;while(angle<-180)angle+=360; return angle;}
     public double getSteeringEncoder(){
-        double angle=steeringEncoder.getPosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
+        double angle=steeringEncoder.getAbsolutePosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
     }
     public void setBrakeOn(boolean brake){ 
-        if(brake){m_motor.setIdleMode(IdleMode.kBrake); }
-        else     {m_motor.setIdleMode(IdleMode.kCoast); }
+        if(brake)
+        {
+            //m_motor.setIdleMode(IdleMode.kBrake); 
+        }
+        else     
+        {
+            //m_motor.setIdleMode(IdleMode.kCoast); 
+        }
     }
 }
