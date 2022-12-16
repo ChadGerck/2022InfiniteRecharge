@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import java.util.concurrent.TimeUnit;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 import robot.subsystems.Drivetrain;
 
 //import edu.wpi.first.cameraserver.CameraServer;
@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
   Default = "Default", P2 = "A1.2", P3 = "A1.3", HailMary = "HailMary", Defense = "Defense"; 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private final SendableChooser<String> m_chosen = new SendableChooser<>();
-  public static AHRS nav; 
+  //public static AHRS nav; 
   public boolean flag = true; 
   static double finalAngle, directMag, steering_adjust, x, rotMag;
   static Boolean fixRotation;
@@ -37,9 +37,9 @@ public class Robot extends TimedRobot {
     m_LIDAR.setMaxPeriod(1.00); //set the max period that can be measured
     m_LIDAR.setSemiPeriodMode(true); //Set the counter to period measurement
     m_LIDAR.reset();
-    nav = new AHRS(I2C.Port.kMXP); 
+    //nav = new AHRS(I2C.Port.kMXP); 
     
-    nav.reset();
+    //nav.reset();
     //CameraServer.startAutomaticCapture();
 
     m_chooser.setDefaultOption("FarL", FarL); m_chooser.addOption("Left", Left); m_chooser.addOption("Mid", Mid); m_chooser.addOption("Front", Front);  m_chooser.addOption("FarR", FarR);
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 		myTimer.reset();
 		myTimer.start();
     swerve.OdoReset();
-    nav.reset();
+    //nav.reset();
     swerve.setALLBrake(false); 
     switch(m_chooser.getSelected()){
       case "FarL": 
@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
     }while(x<-3 || x > 3);
   }
   
+  /*
   public static void MoveTo(double x, double y, double angle){
     x = -x; 
     angle = -angle; 
@@ -121,6 +122,7 @@ public class Robot extends TimedRobot {
     }
     SwerveMath.ComputeSwerve(finalAngle, 0, 0, false);
   }
+  */
   public static void SleepFor(long x){try { TimeUnit.SECONDS.sleep(x); } catch (Exception e) {}}
   @Override public void autonomousPeriodic() {
     Drivetrain.updateOdometry();
@@ -131,8 +133,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("ODOY", Drivetrain.m_odometry.getPoseMeters().getTranslation().getY());
   }
   @Override public void testPeriodic() {}
-  public static double NavAngle() {return NavAngle(0);}
-  public static double NavAngle(double add){double angle = Robot.nav.getAngle()+add;
-    while(angle>180)angle-=360;while(angle<-180)angle+=360;return angle; 
-  }
+  //public static double NavAngle() {return NavAngle(0);}
+  //public static double NavAngle(double add){double angle = Robot.nav.getAngle()+add;
+    //while(angle>180)angle-=360;while(angle<-180)angle+=360;return angle; 
+  //}
 }

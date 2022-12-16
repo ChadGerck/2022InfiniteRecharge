@@ -39,7 +39,8 @@ public class Drive extends CommandBase {
       if(oi.RightMag(1) > .7) { rightArc = -oi.RightArc(1); }
       else if(oi.DpadUp(1)){ rightArc = 0; } else if(oi.DpadRight(1)){ rightArc = 270; }
       else if(oi.DpadDown(1)){ rightArc = 180; } else if(oi.DpadLeft(1)){ rightArc = 90; }
-      try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
+      try { Robot.swerve.turning.setYaw(rightArc);} catch (Exception e) {}
+      //try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
       rotMag = Robot.swerve.turning.getPIDOutput();
     } else{ rotMag = 0; }
 
@@ -48,7 +49,8 @@ public class Drive extends CommandBase {
     //   finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1),steering_adjust))-90; directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftY(1)))/2; 
     //   oi.LEDOn();
     // } 
-    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))) - Robot.NavAngle()-90; directMag = speedThrottle*oi.LeftMag(1); }
+    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))); directMag = speedThrottle*oi.LeftMag(1); }
+    //if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))) - Robot.NavAngle()-90; directMag = speedThrottle*oi.LeftMag(1); }
     else if(oi.RightBumperDown(1)) { oi.LEDOff(); finalAngle = 270; directMag = .05; } else if(oi.LeftBumperDown(1)) { finalAngle = 90; directMag = .05; }
     else if(oi.LeftTrigger(1) > .1) { oi.LEDOff(); finalAngle = 180; directMag = .05; } else if(oi.RightTrigger(1) > .1) {finalAngle = 0; directMag = .05; }
     else { oi.LEDOff(); directMag = 0; }
@@ -58,11 +60,11 @@ public class Drive extends CommandBase {
     } else{fixRotation = true;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
 
-    SmartDashboard.putNumber ("Angle", Robot.NavAngle());
+    //SmartDashboard.putNumber ("Angle", Robot.NavAngle());
     
     //PLAYER TWO CONTROLS
     
-    if(oi.StartButton(1)) { Robot.nav.reset(); } //if(oi.StartButton(2)) { Robot.swerve.ResetElevator(); }
+    //if(oi.StartButton(1)) { Robot.nav.reset(); } //if(oi.StartButton(2)) { Robot.swerve.ResetElevator(); }
     // ElevatorPositions.MoveElevators();
 
   }

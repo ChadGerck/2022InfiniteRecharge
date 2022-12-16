@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
   public  SwerveModule getModuleNE(){ return moduleFR;}
 	public  SwerveModule getModuleSW(){ return moduleBL;}
   public  SwerveModule getModuleSE(){ return moduleBR;}
-  public static Rotation2d getAngle() { return Rotation2d.fromDegrees(Robot.NavAngle()); }
+  //public static Rotation2d getAngle() { return Rotation2d.fromDegrees(Robot.NavAngle()); }
   public void setAllAngle(double degrees){
     moduleFL.setSteeringDegrees(degrees); moduleFR.setSteeringDegrees(degrees);
     moduleBL.setSteeringDegrees(degrees); moduleBR.setSteeringDegrees(degrees);
@@ -67,11 +67,11 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("ODOY", ODOY());
   }
   public static void updateOdometry() {
-    m_odometry.update(
-        getAngle(),
-        moduleFL.getState(), moduleFR.getState(),
-        moduleBL.getState(), moduleBR.getState()
-    );
+    //m_odometry.update(
+        //getAngle(),
+        //moduleFL.getState(), moduleFR.getState(),
+        //moduleBL.getState(), moduleBR.getState()
+    //);
   }
   public double ODOX() { return m_odometry.getPoseMeters().getTranslation().getY(); }
   public double ODOY() { return m_odometry.getPoseMeters().getTranslation().getX(); }

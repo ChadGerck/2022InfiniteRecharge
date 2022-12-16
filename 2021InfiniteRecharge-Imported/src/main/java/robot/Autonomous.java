@@ -5,7 +5,7 @@ package robot;
 public class Autonomous {    
 
     public static void Auto(){
-        Robot.MoveTo(.25, 0,0); 
+        //Robot.MoveTo(.25, 0,0); 
         // //x,y,angle
         // Robot.MoveTo(0, 0.25,0);
         // Robot.SleepFor(2);
@@ -20,26 +20,32 @@ public class Autonomous {
     }   
 //use -180 to 180; ie, 270 = -90
     public static void Auto2(){
+        /*
         Robot.MoveTo(0,0.30,0);
         Robot.MoveTo(0,.20,90);
         Robot.MoveTo(0,0.25,180);
         Robot.MoveTo(-.25,0,-90);
-        Robot.LimeAlign();                          
+        Robot.LimeAlign();      
+        */                    
     }
 
     public static void Auto3(){
+        /*
         Robot.MoveTo(0.20,0,0);
         Robot.MoveTo(0,-.20,0);
         Robot.MoveTo(.25,0,0);
         Robot.MoveTo(-.25,0,0);
         Robot.MoveTo(0,0,0);
         Robot.LimeAlign();
+        */
     }
     public static void Auto4(){
+        /*
         Robot.MoveTo(0,5.5,0); 
         Robot.MoveTo(1,5.5,180);
         Robot.MoveTo(0,0,0); 
         Robot.LimeAlign();
+        */
     }
     public static void Auto12(){}
     public static void Auto13(){}
@@ -58,7 +64,7 @@ public class Autonomous {
     public static void Auto26(){}
 
     public static void AutoTest(){
-        Robot.MoveTo(1,1,0);
+        //Robot.MoveTo(1,1,0);
     }
 
 
@@ -100,6 +106,7 @@ public class Autonomous {
     
     public static void sixballsfoot(){
         //shootball
+        /*
         Robot.MoveTo(1.702,0,0);
         Robot.MoveTo(1.702,-2.976,0);
         //intake
@@ -110,6 +117,7 @@ public class Autonomous {
         //intake
         Robot.MoveTo(0,4.855,0);
         Robot.MoveTo(-1.702,0,0);
+        */
         //linealine
         //shootball
     }
