@@ -43,7 +43,7 @@ public class DriveModule {
     //   finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1),steering_adjust))-90; directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftY(1)))/2; 
     //   oi.LEDOn();
     // } 
-    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))); directMag = speedThrottle*oi.LeftMag(1); }
+    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))-90); directMag = speedThrottle*oi.LeftMag(1); }
     //if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))) - Robot.NavAngle()-90; directMag = speedThrottle*oi.LeftMag(1); }
     else if(oi.RightBumperDown(1)) { oi.LEDOff(); finalAngle = 270; directMag = .05; } else if(oi.LeftBumperDown(1)) { finalAngle = 90; directMag = .05; }
     else if(oi.LeftTrigger(1) > .1) { oi.LEDOff(); finalAngle = 180; directMag = .05; } else if(oi.RightTrigger(1) > .1) {finalAngle = 0; directMag = .05; }
