@@ -23,22 +23,31 @@ public class Drivetrain extends SubsystemBase {
   private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
   private static final Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
 
-  public static CANCoder abeFL = new CANCoder(10), abeFR = new CANCoder(11),
-                         abeBL = new CANCoder( 9), abeBR = new CANCoder(12); 
+  public static CANCoder abeFL = new CANCoder(4), abeFR = new CANCoder(1),
+                         abeBL = new CANCoder(3), abeBR = new CANCoder(2); 
+
+  CANCoderConfiguration _canconfig = new CANCoderConfiguration(); 
   
+
+
   //abeFL = new AnalogPotentiometer(0, 360, 59), abeFR = new AnalogPotentiometer(1, 360, 279), 
   //                            abeBL = new AnalogPotentiometer(2, 360, 402), abeBR = new AnalogPotentiometer(3, 360, -17); 
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
-  moduleFL = new SwerveModule(5, 6, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(3, 4, abeFR, kSwerveP, kSwerveD, false),
-  moduleBL = new SwerveModule(7, 8, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(1, 2, abeBR, kSwerveP, kSwerveD, false);
+  moduleFL = new SwerveModule(7, 8, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(1, 2, abeFR, kSwerveP, kSwerveD, false),
+  moduleBL = new SwerveModule(5, 6, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(3, 4, abeBR, kSwerveP, kSwerveD, false);
   
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
   
   public Drivetrain(){
     turning = new TurnModule(); 
+    abeFL.configAllSettings(_canconfig);
+    abeBL.configAllSettings(_canconfig);
+    abeFR.configAllSettings(_canconfig);
+    abeBR.configAllSettings(_canconfig);
+    //abeFL.configAbsoluteSensorRange(AbsoluteSensorRange [0,360] ,100); 
   }
   public static void setModule(String loc,double degrees,double power){
     switch(loc){case "FL":moduleFL.set(degrees,power);break; case "FR":moduleFR.set(degrees,power);break;
