@@ -1,7 +1,5 @@
 package robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
@@ -18,7 +16,6 @@ public class Drive extends CommandBase {
   boolean fixRotation, rocketAngle = true, evadeMode = false; 
   double speedThrottle = .25; 
   double elvthrottle = 0.3;
-  DoubleSolenoid.Value Piston = Value.kReverse; 
   //ShooterThrottles
   double k = 0.315;
   double e = 270;
