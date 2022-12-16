@@ -10,11 +10,10 @@ public class DriveModule {
   private Notifier DrivingPID; 
   static final double kP = 1, kD = .1; 
   public void initialize() { }
-  double finalAngle, Redthrottle, ballThrottle, rotMag, rightArc, directMag, steering_adjust, x; 
+  double finalAngle, rotMag, rightArc, directMag, steering_adjust, x; 
   double SteerP = -0.025;
-  boolean fixRotation, rocketAngle = true, evadeMode = false; 
+  boolean fixRotation, evadeMode = false; 
   double speedThrottle = .25; 
-  double elvthrottle = 0.3;
   //ShooterThrottles
   double k = 0.315;
   double e = 270;
@@ -56,11 +55,6 @@ public class DriveModule {
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
     
     //SmartDashboard.putNumber ("Angle", Robot.NavAngle());
-    
-    //PLAYER TWO CONTROLS
-    
-    //if(oi.StartButton(1)) { Robot.nav.reset(); } //if(oi.StartButton(2)) { Robot.swerve.ResetElevator(); }
-    // ElevatorPositions.MoveElevators();
     
   }); 
   
