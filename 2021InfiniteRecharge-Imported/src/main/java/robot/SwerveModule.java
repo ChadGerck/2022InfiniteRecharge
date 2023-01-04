@@ -15,7 +15,7 @@ public class SwerveModule{
     private TalonFX mSteering;
     private Notifier pidLoop;          
     private volatile double currentError, lastError, pidOutput;
-    private double setpoint, lastAngle;
+    private double setpoint, lastAngle, offsetSwerve;
     private static final double dt = 0.05;  
     private CANCoder steeringEncoder;
     private Boolean isFlipped; 
@@ -26,9 +26,10 @@ public class SwerveModule{
      * @param SteeringEncoder the AbsoluteEncoder for SwerveDrive
      * @param kP            the steering kP gain
      */
-    public SwerveModule(int kSteeringID, int kDriveID, CANCoder steeringEncoder, double kP, double kD, boolean isFlipped){
+    public SwerveModule(int kSteeringID, int kDriveID,  CANCoder steeringEncoder, double offset, double kP, double kD, boolean isFlipped){
         m_motor = new TalonFX(kDriveID);
         mSteering = new TalonFX(kSteeringID);
+        offsetSwerve = offset;
         //m_driveEncoder = m_motor.getEncoder();
         //m_driveEncoder.setVelocityConversionFactor(0.00064034191); //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))/60
         //m_driveEncoder.setPositionConversionFactor(0.0384205146);  //(2*Math.PI*2*2.54/100*(14/42*26/18*15/60))
@@ -70,8 +71,7 @@ public class SwerveModule{
     }
     public static double boundHalfDegrees(double angle){while(angle>=180)angle-=360;while(angle<-180)angle+=360; return angle;}
     public double getSteeringEncoder(){
-        double angle=steeringEncoder.getAbsolutePosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
-       // SmartDashboard.putNumber("fl", angle);
+        double angle=steeringEncoder.getAbsolutePosition()-offsetSwerve;while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
     }
     public void setBrakeOn(boolean brake){ 
         if(brake)

@@ -41,8 +41,8 @@ public class Drivetrain extends SubsystemBase {
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
-  moduleFL = new SwerveModule(8, 7, abeFL, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, kSwerveP, kSwerveD, false),
-  moduleBL = new SwerveModule(6, 5, abeBL, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, kSwerveP, kSwerveD, false);
+  moduleFL = new SwerveModule(8, 7, abeFL, 0, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, 0, kSwerveP, kSwerveD, false),
+  moduleBL = new SwerveModule(6, 5, abeBL, 0, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, 0, kSwerveP, kSwerveD, false);
   
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
@@ -54,14 +54,6 @@ public class Drivetrain extends SubsystemBase {
    //abeFL.absoluteSensorRange([0,360]);
 
   //  _canconfig.absoluteSensorRange(0,360);
-
-
-  abeFL.configMagnetOffset(90);
-  SmartDashboard.putNumber("fl",abeFL.getPosition());
-  abeFR.configMagnetOffset(25); //190
-  abeBL.configMagnetOffset(55); //220
-  abeBR.configMagnetOffset(135);
-
 
     abeFL.configAllSettings(_canconfig);
     abeBL.configAllSettings(_canconfig);
