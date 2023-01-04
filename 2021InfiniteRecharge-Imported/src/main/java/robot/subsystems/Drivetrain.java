@@ -22,10 +22,10 @@ import robot.DriveModule;
 public class Drivetrain extends SubsystemBase {
   public TurnModule turning; 
   public DriveModule _driveModule;   
-  private static final Translation2d m_frontLeftLocation = new Translation2d(0.381, -0.381);
+  private static final Translation2d m_frontLeftLocation = new Translation2d(-0.381, 0.381);
   private static final Translation2d m_frontRightLocation = new Translation2d(0.381, 0.381);
-  private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
-  private static final Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
+  private static final Translation2d m_backLeftLocation = new Translation2d(-0.381, -0.381);
+  private static final Translation2d m_backRightLocation = new Translation2d(0.381, -0.381);
 
   public static CANCoder abeFL = new CANCoder(4), abeFR = new CANCoder(1),
                          abeBL = new CANCoder(3), abeBR = new CANCoder(2); 
@@ -41,6 +41,7 @@ public class Drivetrain extends SubsystemBase {
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
+  //
   moduleFL = new SwerveModule(8, 7, abeFL, 0, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, 142, kSwerveP, kSwerveD, false),
   moduleBL = new SwerveModule(6, 5, abeBL, 137, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, 250, kSwerveP, kSwerveD, false);
   
