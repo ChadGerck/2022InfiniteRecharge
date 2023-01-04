@@ -41,8 +41,8 @@ public class Drivetrain extends SubsystemBase {
 
   static double kSwerveP = .8, kSwerveD = .1; 
   private static SwerveModule 
-  moduleFL = new SwerveModule(8, 7, abeFL, 0, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, 0, kSwerveP, kSwerveD, false),
-  moduleBL = new SwerveModule(6, 5, abeBL, 0, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, 0, kSwerveP, kSwerveD, false);
+  moduleFL = new SwerveModule(8, 7, abeFL, 0, kSwerveP, kSwerveD, false), moduleFR = new SwerveModule(2, 1, abeFR, 142, kSwerveP, kSwerveD, false),
+  moduleBL = new SwerveModule(6, 5, abeBL, 137, kSwerveP, kSwerveD, false), moduleBR = new SwerveModule(4, 3, abeBR, 250, kSwerveP, kSwerveD, false);
   
   private static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
   public static final SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(0));
