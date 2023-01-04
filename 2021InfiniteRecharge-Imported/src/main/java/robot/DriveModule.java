@@ -3,6 +3,8 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.SwerveMath;
+import robot.subsystems.Drivetrain;
+
 import static robot.Robot.oi;
 
 public class DriveModule {
@@ -54,7 +56,7 @@ public class DriveModule {
     } else{fixRotation = true;}
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
     
-    //SmartDashboard.putNumber ("Angle", Robot.NavAngle());
+    SmartDashboard.putNumber ("fl", Drivetrain.getModuleNW().getSteeringEncoder());
     
   }); 
   

@@ -56,10 +56,11 @@ public class Drivetrain extends SubsystemBase {
   //  _canconfig.absoluteSensorRange(0,360);
 
 
-    abeFL.configMagnetOffset(-5);
-    abeFR.configMagnetOffset(-5);
-    abeBL.configMagnetOffset(-5);
-    abeBR.configMagnetOffset(-5);
+  abeFL.configMagnetOffset(90);
+  SmartDashboard.putNumber("fl",abeFL.getPosition());
+  abeFR.configMagnetOffset(25); //190
+  abeBL.configMagnetOffset(55); //220
+  abeBR.configMagnetOffset(135);
 
 
     abeFL.configAllSettings(_canconfig);
@@ -72,7 +73,7 @@ public class Drivetrain extends SubsystemBase {
     switch(loc){case "FL":moduleFL.set(degrees,power);break; case "FR":moduleFR.set(degrees,power);break;
                 case "BL":moduleBL.set(degrees,power);break; case "BR":moduleBR.set(degrees,power);break;
     }
-  }public SwerveModule getModuleNW(){ return moduleFL;}
+  }public static SwerveModule getModuleNW(){ return moduleFL;}
   public  SwerveModule getModuleNE(){ return moduleFR;}
 	public  SwerveModule getModuleSW(){ return moduleBL;}
   public  SwerveModule getModuleSE(){ return moduleBR;}

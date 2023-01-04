@@ -71,6 +71,7 @@ public class SwerveModule{
     public static double boundHalfDegrees(double angle){while(angle>=180)angle-=360;while(angle<-180)angle+=360; return angle;}
     public double getSteeringEncoder(){
         double angle=steeringEncoder.getAbsolutePosition();while(angle>360)angle-=360;while(angle<0)angle+=360;return angle; 
+       // SmartDashboard.putNumber("fl", angle);
     }
     public void setBrakeOn(boolean brake){ 
         if(brake)
