@@ -30,7 +30,7 @@ public class DriveModule {
     else{speedThrottle = 0.5;}
         
     SmartDashboard.putBoolean("evademode: ", evadeMode); 
-    //SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
+    SmartDashboard.putNumber("NavAngle: ", Robot.NavAngle()); 
     if( oi.RightMag(1)>.3){ rotMag = -0.5*oi.RightX(1); }
     else if(oi.RightMag(1) > .7 || oi.DpadUp(1) || oi.DpadDown(1) || oi.DpadLeft(1) || oi.DpadRight(1)){
       if(oi.RightMag(1) > .7) { rightArc = -oi.RightArc(1); }
@@ -39,14 +39,14 @@ public class DriveModule {
       try { Robot.swerve.turning.setYaw(rightArc);} catch (Exception e) {}
       rotMag = Robot.swerve.turning.getPIDOutput();
     } else{ rotMag = 0; }
-    //try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
-    // if( oi.AButtonDown(1)){ 
-    //   x = oi.LimelightTx(); if(x >= -3 && x <= 3){ steering_adjust = 0; }else{ steering_adjust = SteerP*-x; } 
-    //   finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1),steering_adjust))-90; directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftY(1)))/2; 
-    //   oi.LEDOn();
-    // } 
-    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))-90); directMag = speedThrottle*oi.LeftMag(1); }
-    //if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))) - Robot.NavAngle()-90; directMag = speedThrottle*oi.LeftMag(1); }
+    try { Robot.swerve.turning.setYaw(rightArc + Robot.NavAngle());} catch (Exception e) {}
+     if( oi.AButtonDown(1)){ 
+       x = oi.LimelightTx(); if(x >= -3 && x <= 3){ steering_adjust = 0; }else{ steering_adjust = SteerP*-x; } 
+       finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1),steering_adjust))-90; directMag = (Math.abs(steering_adjust) + Math.abs(oi.LeftY(1)))/2; 
+       oi.LEDOn();
+     } 
+    //if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), (-1)*oi.LeftX(1))-90); directMag = speedThrottle*oi.LeftMag(1); }
+    if(oi.LeftMag(1) >= .2){ oi.LEDOff(); finalAngle = Math.toDegrees(Math.atan2(oi.LeftY(1), oi.LeftX(1))) - Robot.NavAngle()-90; directMag = speedThrottle*oi.LeftMag(1); }
     else if(oi.RightBumperDown(1)) { oi.LEDOff(); finalAngle = 270; directMag = .05; } else if(oi.LeftBumperDown(1)) { finalAngle = 90; directMag = .05; }
     else if(oi.LeftTrigger(1) > .1) { oi.LEDOff(); finalAngle = 180; directMag = .05; } else if(oi.RightTrigger(1) > .1) {finalAngle = 0; directMag = .05; }
     else { oi.LEDOff(); directMag = 0; }
@@ -57,6 +57,8 @@ public class DriveModule {
     SwerveMath.ComputeSwerve(finalAngle, directMag, rotMag, fixRotation); 
     
     SmartDashboard.putNumber ("fl", Drivetrain.getModuleNW().getSteeringEncoder());
+
+    if(oi.StartButton(1)) { Robot.nav.reset(); } 
     
   }); 
   
